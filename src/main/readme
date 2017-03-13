@@ -1,0 +1,6 @@
+
+mvn clean install
+java - jar hello-hazelcast-0.0.1-SNAPSHOT.jar
+
+The application  coordinates among the nodes (or on the same node on multiple jvm) only one of them prints("Just started").If you wanna run
+on your network change localhost with your network interface address.
