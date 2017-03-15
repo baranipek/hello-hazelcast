@@ -26,10 +26,17 @@ public class HelloHazelcastApplication {
 
         HazelcastInstance hazelcastInstance = Hazelcast.newHazelcastInstance(config);
 
-        IMap<String, Boolean> clusterMap = hazelcastInstance.getMap(MAP_NAME);
+        final IMap<String, Long> clusterMap = hazelcastInstance.getMap(MAP_NAME);
         if (clusterMap.get(KEY_NAME) == null) {
-            clusterMap.put(KEY_NAME, Boolean.TRUE);
-            System.out.println("Just Started");
+            try {
+                clusterMap.lock(KEY_NAME);
+                clusterMap.put(KEY_NAME, 1L);
+                System.out.println("Just Started");
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            } finally {
+                clusterMap.unlock(KEY_NAME);
+            }
 
         }
 
