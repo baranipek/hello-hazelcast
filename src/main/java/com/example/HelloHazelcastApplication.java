@@ -28,12 +28,13 @@ public class HelloHazelcastApplication {
 
         final IMap<String, Long> clusterMap = hazelcastInstance.getMap(MAP_NAME);
         if (clusterMap.get(KEY_NAME) == null) {
+
             try {
                 clusterMap.lock(KEY_NAME);
                 clusterMap.put(KEY_NAME, 1L);
                 System.out.println("Just Started");
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                 System.out.println(e.getMessage());
             } finally {
                 clusterMap.unlock(KEY_NAME);
             }
