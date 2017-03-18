@@ -30,7 +30,7 @@ public class HelloHazelcastApplication {
 
         final IMap<String, Long> clusterMap = hazelcastInstance.getMap(MAP_NAME);
 
-        if (clusterMap.tryLock(KEY_NAME, 2, TimeUnit.SECONDS)) {
+        if (clusterMap.tryLock(KEY_NAME, 1, TimeUnit.SECONDS)) {
             if (clusterMap.get(KEY_NAME) == null) {
                 try {
                     clusterMap.put(KEY_NAME, 1L);
