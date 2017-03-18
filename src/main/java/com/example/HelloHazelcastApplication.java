@@ -9,6 +9,8 @@ import com.hazelcast.core.IMap;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.util.concurrent.TimeUnit;
+
 import static java.util.Collections.singletonList;
 
 @SpringBootApplication
@@ -28,7 +30,7 @@ public class HelloHazelcastApplication {
 
         final IMap<String, Long> clusterMap = hazelcastInstance.getMap(MAP_NAME);
 
-        if (clusterMap.tryLock(KEY_NAME)) {
+        if (clusterMap.tryLock(KEY_NAME, 2, TimeUnit.SECONDS)) {
             if (clusterMap.get(KEY_NAME) == null) {
                 try {
                     clusterMap.put(KEY_NAME, 1L);
