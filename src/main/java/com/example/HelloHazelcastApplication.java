@@ -27,7 +27,7 @@ public class HelloHazelcastApplication {
         HazelcastInstance hazelcastInstance = Hazelcast.newHazelcastInstance(config);
 
         final IMap<String, Long> clusterMap = hazelcastInstance.getMap(MAP_NAME);
-        clusterMap.lock(KEY_NAME);
+        clusterMap.tryLock(KEY_NAME);
         if (clusterMap.get(KEY_NAME) == null) {
             try {
                 clusterMap.put(KEY_NAME, 1L);
